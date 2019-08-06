@@ -415,11 +415,13 @@ if __name__ == "__main__":
     group4.add_argument("--incat", dest='incat', type=str, default=None,
                         help='Input catalogue to be warped.')
     group4.add_argument("--refcat", dest='refcat', type=str, default=None,
-                        help='Input catalogue to be warped.')
+                        help='Reference catalogue.')
     group4.add_argument("--xmcat", dest='xm', type=str, default=None,
                         help='Output cross match catalogue')
     group4.add_argument("--corrected", dest='corrected', type=str, default=None,
                         help='Output corrected version of input catalogue')
+    group4.add_argument("--radius", dest='radius', type=float, default=2.,
+                        help='Matching radius (in arcmin), default=2arcmin')
 
     results = parser.parse_args()
 
@@ -434,7 +436,8 @@ if __name__ == "__main__":
                                      ra1=results.ra1,
                                      dec1=results.dec1,
                                      ra2=results.ra2,
-                                     dec2=results.dec2)
+                                     dec2=results.dec2,
+                                     radius=results.radius/60.)
             xmcat.write(results.xm, overwrite=True)
             print("Wrote {0}".format(results.xm))
             if results.corrected is not None:
